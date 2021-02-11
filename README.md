@@ -1,6 +1,6 @@
 # HabitRocket
 
-![logo]()
+![logo](https://raw.githubusercontent.com/dimitrijd-iron/habitrocket/develop/public/images/logo.png)
 
 ## Description
 
@@ -105,7 +105,7 @@ Punch in your wins everyday and soon your habit will became you! :rocket:
 
 [Repository Link](https://github.com/dimitrijd-iron/habitrocket)
 
-[Deploy Link](https://habitrocket.herokuapp.com/)
+[Deploy Link](https://habitrocket.herokuapp.com/)  *not yet available*
 
 
 ### Wireframe
