@@ -73,7 +73,7 @@ Punch in your wins everyday and soon your habit will became you! :rocket:
    "name": String,
    "dateTimePush": String,
    "verified": Boolean, 
-   "dateTimeVerified: String
+   "dateTimeVerified": String
 }
 ```
 
@@ -83,7 +83,7 @@ Punch in your wins everyday and soon your habit will became you! :rocket:
 { "user": [{ type: Schema.Types.ObjectId, ref: 'User' }]
    "description": String,
    "dateTimeRegistered": String,
-   "frequency: String,
+   "frequency": String,
    "cueTime":  String,
    "cueMedium" String,
    "accountabilityPartner": [{ type: Schema.Types.ObjectId, ref: 'AccountabilityPartner' }],
