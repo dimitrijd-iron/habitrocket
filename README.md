@@ -52,6 +52,7 @@ Punch in your wins everyday and soon your habit will became you! :rocket:
 
 `User`
 
+```javascript
 { "email": String,
    "name": String,
    "password": String,
@@ -60,22 +61,26 @@ Punch in your wins everyday and soon your habit will became you! :rocket:
    "dateTimeSignup": String,
    "dateTimeUpdate": String,
    "dateTimeLogin": String,
-   "location": String, // backlog
+   "location": String,
 }
+```
 
 `AccountabilityPartner`
 
+```javascript
 { "user": [{ type: Schema.Types.ObjectId, ref: 'User' }],
    "email": String,
    "name": String,
    "dateTimePush": String,
-   "verified": Boolean,           // backlog
-   "dateTimeVerified: String,   // backlog
+   "verified": Boolean, 
+   "dateTimeVerified: String
 }
+```
 
 `Habit`
 
-` "user": [{ type: Schema.Types.ObjectId, ref: 'User' }]
+```javascript
+{ "user": [{ type: Schema.Types.ObjectId, ref: 'User' }]
    "description": String,
    "dateTimeRegistered": String,
    "frequency: String,
@@ -83,8 +88,9 @@ Punch in your wins everyday and soon your habit will became you! :rocket:
    "cueMedium" String,
    "accountabilityPartner": [{ type: Schema.Types.ObjectId, ref: 'AccountabilityPartner' }],
    "push": [{dateTime: String}],
-   "punch": [{dateTime: String}],
+   "punch": [{dateTime: String}]
 }
+```
 
 
 
