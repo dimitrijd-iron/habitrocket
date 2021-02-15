@@ -1,16 +1,16 @@
-# HabitRocket
-
 ![logo](https://raw.githubusercontent.com/dimitrijd-iron/habitrocket/develop/public/images/logo.png)
+
+# HAbitRocket
 
 ## Description
 
-Building and maintening habits is tough, even tougher when you do it alone.
+Building and maintaining habits is tough, even tougher when you do it alone.
 
-**Habitomic** is here to help. A cool app with a minimalist interface will help you tracking your progress and staying motivated.
+**HAbitRocket** is here to help. A cool app with a minimalist interface will help you tracking your progress and staying motivated.
 
 Get daily reminders on your phone or email, appoint a friend as your accountability partner.
 
-Punch in your wins everyday and soon your habit will became you! :rocket:
+Punch in your wins everyday and soon your habit will become you! :rocket:
 
 ## User stories
 
@@ -53,42 +53,44 @@ Punch in your wins everyday and soon your habit will became you! :rocket:
 `User`
 
 ```javascript
-{ "email": String,
-   "name": String,
-   "password": String,
-   "phone": String,
-   "tc": Boolean,
-   "dateTimeSignup": String,
-   "dateTimeUpdate": String,
-   "dateTimeLogin": String,
-   "location": String,
+{ email: { type: String, required: "Name is required" },
+  name: { type: String, required: "Email is required", unique: true },
+  password: { type: String, required: "Password is required" },
+  phone: String,
+  tc: { type: Boolean, required: true },
+  dateTimeSignup: { type: Date, default: Date.now },
+  dateTimeUpdate: { type: Date, default: Date.now },
+  dateTimeLogin: { type: Date, default: Date.now },
 }
 ```
 
 `AccountabilityPartner`
 
 ```javascript
-{ "user": [{ type: Schema.Types.ObjectId, ref: 'User' }],
-   "email": String,
-   "name": String,
-   "dateTimePush": String,
-   "verified": Boolean, 
-   "dateTimeVerified": String
+{ user: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+   email:  {type: String, required: "Email is required", unique: true },
+   name: {type: String, required: "Name is required"},
+   dateTimePush: { type: Date, default: Date.now },
+   verified: { type: Boolean, required: true },
+   dateTimeVerified: {type: Date, default: Date.now}
 }
 ```
 
 `Habit`
 
 ```javascript
-{ "user": [{ type: Schema.Types.ObjectId, ref: 'User' }]
-   "description": String,
-   "dateTimeRegistered": String,
-   "frequency": String,
-   "cueTime":  String,
-   "cueMedium" String,
-   "accountabilityPartner": [{ type: Schema.Types.ObjectId, ref: 'AccountabilityPartner' }],
-   "push": [{dateTime: String}],
-   "punch": [{dateTime: String}]
+{ user: [{ type: Schema.Types.ObjectId, ref: "User" }],
+   description: String,
+   dateTimeRegistered: { type: Date, default: Date.now },
+   frequency: String,
+   cueTime: String, // 07:77 format
+   cueMedium: String,
+   accountabilityPartner: {
+     type: Schema.Types.ObjectId,
+     ref: "AccountabilityPartner",
+   },
+   push: [{ type: Date, default: Date.now }],
+   punch: [{ type: Date, default: Date.now }],
 }
 ```
 
@@ -96,7 +98,7 @@ Punch in your wins everyday and soon your habit will became you! :rocket:
 
 ## Backlog
 
-- Add SMS and WhatsApp notification with Twillio
+- Add SMS and WhatsApp notification with Twillio.
 - Allow for selected day of the week habit frequency.
 - Allow for intra-day habit frequency.
 - Add report for the accountability partner.
@@ -107,27 +109,22 @@ Punch in your wins everyday and soon your habit will became you! :rocket:
 
 ## Links
 
-#### Git 
+#### Repositories 
 
-[Repository Link](https://github.com/dimitrijd-iron/habitrocket)
+Code: [Github](https://github.com/dimitrijd-iron/habitrocket)
 
-[Deploy Link](https://habitrocket.herokuapp.com/)  *not yet available*
+App: [Heroku](https://habitrocket.herokuapp.com/)  *not yet available*
 
 
-### Wireframe
+#### Wireframe
 [Miro Board](https://miro.com/app/board/o9J_lUxa4bM=/)
 
 
-
-#### Trello
+#### Projet Management
 
 [Trello Board](https://trello.com/b/OEMG3fxi/habitrocket)
 
 
+#### Presentation
 
-#### Slides
-
-[Investor deck](http://not.yet.com)   *not yet available*
-
-
- 
+[Google Slides](https://docs.google.com/presentation/d/1PTTCqOrnPOnL0XoZPNJ_US6tZPRbf39xmgTVKkmftMU/edit?usp=sharing)  
