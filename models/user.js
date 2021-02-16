@@ -8,6 +8,7 @@ const userSchema = new Schema({
   phone: String,
   tc: { type: Boolean, required: true },
   dateTimeSignup: { type: Date, default: Date.now },
+  verified: { type: Boolean, default: false },
   dateTimeUpdate: { type: Date, default: Date.now },
   dateTimeLogin: { type: Date, default: Date.now },
   // backlog:  location: String,

@@ -2,11 +2,11 @@ mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const habitSchema = new Schema({
-  user: [{ type: Schema.Types.ObjectId, ref: "User" }],
+  user: { type: Schema.Types.ObjectId, ref: "User" },
   description: String,
   dateTimeRegistered: { type: Date, default: Date.now },
-  frequency: String,
-  cueTime: String, // 07:77 format
+  cueDay: [String], // ["Mon", "Wed", "Thu"]
+  cueTime: [String], // array matching cueDay 07:77 format, 24H, trailing zeros 23:59
   cueMedium: String,
   accountabilityPartner: {
     type: Schema.Types.ObjectId,

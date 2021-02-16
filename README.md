@@ -54,36 +54,38 @@ Punch in your wins everyday and soon your habit will become you! :rocket:
 
 ```javascript
 { email: { type: String, required: "Name is required" },
-  name: { type: String, required: "Email is required", unique: true },
-  password: { type: String, required: "Password is required" },
-  phone: String,
-  tc: { type: Boolean, required: true },
-  dateTimeSignup: { type: Date, default: Date.now },
-  dateTimeUpdate: { type: Date, default: Date.now },
-  dateTimeLogin: { type: Date, default: Date.now },
+   name: { type: String, required: "Email is required", unique: true },
+   password: { type: String, required: "Password is required" },
+   phone: String,
+   tc: { type: Boolean, required: true },
+   dateTimeSignup: { type: Date, default: Date.now },
+   verified: { type: Boolean, default: false },
+   dateTimeUpdate: { type: Date, default: Date.now },
+   dateTimeLogin: { type: Date, default: Date.now },
+   // backlog:  location: String,
 }
 ```
 
 `AccountabilityPartner`
 
 ```javascript
-{ user: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-   email:  {type: String, required: "Email is required", unique: true },
-   name: {type: String, required: "Name is required"},
+{ user: { type: Schema.Types.ObjectId, ref: "User" },
+   email: { type: String, required: "Email is required" },
+   name: { type: String, required: "Name is required" },
    dateTimePush: { type: Date, default: Date.now },
-   verified: { type: Boolean, required: true },
-   dateTimeVerified: {type: Date, default: Date.now}
+   verified: { type: Boolean, default: false },
+   dateTimeVerified: { type: Date, default: Date.now },
 }
 ```
 
 `Habit`
 
 ```javascript
-{ user: [{ type: Schema.Types.ObjectId, ref: "User" }],
+{ user: { type: Schema.Types.ObjectId, ref: "User" },
    description: String,
    dateTimeRegistered: { type: Date, default: Date.now },
-   frequency: String,
-   cueTime: String, // 07:77 format
+   cueDay: [String],  // ["Mon", "Wed", "Thu"] 
+   cueTime: [String], // array matching cueDay 07:77 format, 24H, trailing zeros 23:59
    cueMedium: String,
    accountabilityPartner: {
      type: Schema.Types.ObjectId,
