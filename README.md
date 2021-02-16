@@ -29,12 +29,12 @@ Punch in your wins everyday and soon your habit will become you! :rocket:
 | **Method** | **Route**                         | **Description**                                | **Request - Body** |
 | ---------- | --------------------------------- | ---------------------------------------------- | ------------------ |
 | `GET`      | `/`                               | Splash screen route. Render `index` view.      |                    |
-| `GET`      | `/signup`                         | Render `signup` view.                          |                    |
-| `POST`     | `/private/signup`                 | Return `signup` form to server, start session. | `signupForm`       |
-| `GET`      | `/login`                          | Render `login` view.                           |                    |
-| `POST`     | `/private/:id/login`              | Return `login` form to server, start session.  | `loginForm`        |
-| `GET`      | `/private/:id/update-details`     | Render `update-details` view.                  |                    |
-| `POST`     | `/private/:id/update-details`     | Return `update-details` form to server.        | `signupForm`       |
+| `GET`      | `/auth/signup`                    | Render `signup` view.                          |                    |
+| `POST`     | `/auth/signup`                    | Return `signup` form to server, start session. | `signupForm`       |
+| `GET`      | `/auth/login`                     | Render `login` view.                           |                    |
+| `POST`     | `/auth/:id/login`                 | Return `login` form to server, start session.  | `loginForm`        |
+| `GET`      | `/auth/:id/update-details`        | Render `update-details` view.                  |                    |
+| `POST`     | `/auth/:id/update-details`        | Return `update-details` form to server.        | `signupForm`       |
 | `GET`      | `/private/:id/habit-dashboard`    | Render `habit-dashboard` view.                 |                    |
 | `GET`      | `/private/:id/habit-add`          | Render `habit-add` view.                       |                    |
 | `POST`     | `/private/:id/habit-add`          | Return `habit-add` form to server.             | `habitForm`        |

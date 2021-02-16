@@ -1,3 +1,5 @@
+//"use strict";
+
 // MODULES
 // model
 const mongoose = require("mongoose");
@@ -10,7 +12,7 @@ const cookieParser = require("cookie-parser");
 
 // view
 const hbs = require("hbs");
-const favicon = require("serve-favicon");
+// const favicon = require("serve-favicon");  // TODO: add favicon
 
 // dev & utils
 const logger = require("morgan");
@@ -57,8 +59,12 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // ROUTES SETUP
 // TODO: write routes
-// app.use("/", publicRouter);
-// app.use("/private", privateRouter);
+const publicRouter = require("./routes/index");
+app.use("/", publicRouter);
+console.log(publicRouter);
+const authRouter = require("./routes/auth");
+app.use("/auth", authRouter);
+console.log(authRouter);
 
 // error handler
 app.use(function (err, req, res, next) {

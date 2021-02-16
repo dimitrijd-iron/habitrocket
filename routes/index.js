@@ -1,9 +1,15 @@
-var express = require('express');
-var router = express.Router();
+var express = require("express");
+var publicRouter = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+publicRouter.get("/", function (req, res, next) {
+  res.render("index", { title: "HAbitRocket" });
 });
 
-module.exports = router;
+/* GET signup. */
+publicRouter.get("/signup", function (req, res, next) {
+  console.log("===================== get-signuup");
+  res.render("auth/signup", { title: "HAbitRocket" });
+});
+
+module.exports = publicRouter;

@@ -12,5 +12,3 @@ const apSchema = new Schema({
 
 const Ap = mongoose.model("Ap", apSchema);
 module.exports = Ap;
-
-console.log(Ap);
