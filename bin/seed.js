@@ -39,13 +39,13 @@ const users = [
   },
 ];
 
-const apList = [
+const aps = [
   { email: "jennyred@xkae.com", name: "Jenny Red", verified: true },
   { email: "soledad@xkae.com", name: "Soledad Garcia Garcia", verified: true },
   { email: "tomohiro@xkae.com", name: "Tanaka Tomohiro", verified: false },
 ];
 
-const habitList = [
+const habits = [
   {
     description: "floss",
     cueDay: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
@@ -149,19 +149,22 @@ const seedDB = async () => {
     });
     await conn.connection.db.dropDatabase();
     let userList = await User.create(users);
+    let apList = await Ap.create(aps);
 
-    let ndx = 0;
+    console.log("created aplist, created userlist");
+    console.log(apList);
+
     for (Person of userList) {
-      await Ap.create({ user: Person._id, ...apList[ndx++] });
-      let ndx1 = 0;
-      for (OneHabit of habitList) {
+      let ndx = 0;
+      for (OneHabit of habits) {
         await Habit.create({
           user: Person._id,
           ...OneHabit,
-          push: pushList[ndx1],
-          punch: punchList[ndx1],
+          push: pushList[ndx],
+          punch: punchList[ndx],
+          ap: apList[ndx]._id,
         });
-        ndx1++;
+        ndx++;
       }
     }
 
