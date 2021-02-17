@@ -30,17 +30,17 @@ Punch in your wins everyday and soon your habit will become you! :rocket:
 | ---------- | --------------------------------- | ---------------------------------------------- | ------------------ |
 | `GET`      | `/`                               | Splash screen route. Render `index` view.      |                    |
 | `GET`      | `/auth/signup`                    | Render `signup` view.                          |                    |
-| `POST`     | `/auth/signup`                    | Return `signup` form to server, start session. | `signupForm`       |
+| `POST`     | `/auth/signup`                    | Return `signup` form to server, start session. | `signup-form`      |
 | `GET`      | `/auth/login`                     | Render `login` view.                           |                    |
-| `POST`     | `/auth/:id/login`                 | Return `login` form to server, start session.  | `loginForm`        |
+| `POST`     | `/auth/login`                     | Return `login` form to server, start session.  | `login-form`       |
 | `GET`      | `/auth/:id/update-details`        | Render `update-details` view.                  |                    |
-| `POST`     | `/auth/:id/update-details`        | Return `update-details` form to server.        | `signupForm`       |
+| `POST`     | `/auth/:id/update-details`        | Return `update-details` form to server.        | `signup-form`      |
 | `GET`      | `/private/:id/habit-dashboard`    | Render `habit-dashboard` view.                 |                    |
 | `GET`      | `/private/:id/habit-add`          | Render `habit-add` view.                       |                    |
-| `POST`     | `/private/:id/habit-add`          | Return `habit-add` form to server.             | `habitForm`        |
+| `POST`     | `/private/:id/habit-add`          | Return `habit-add` form to server.             | `habit-form`       |
 | `GET`      | `/private/:id/habit-track/:habit` | Render `habit-track` view.                     |                    |
-| `POST`     | `/private/:id/habit-track/:habit` | Return `habit-track` input to server.          | `trackForm`        |
-| `POST`     | `https://tbd.tbd`                 | Call `API-tbd` for push notification.          | `pushApiForm`      |
+| `POST`     | `/private/:id/habit-track/:habit` | Return `habit-track` input to server.          | `track-form`       |
+| `POST`     | `https://tbd.tbd`                 | Call `API-tbd` for push notification.          | `push-api-form`    |
 
 - `signup-form: {name, phone, email, password, tc}`
 - `login-form: {email, password}`
