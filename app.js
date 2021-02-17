@@ -31,7 +31,7 @@ const debug = require("debug")(
 // TODO:  env setup
 // require("dotenv").config();
 
-// setup up monngo
+// setup up monngo and connects to database
 require("./configs/db.config");
 
 // setup express
@@ -78,13 +78,12 @@ app.use(express.static(path.join(__dirname, "public")));
 // app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
 
 // ROUTES SETUP
-// TODO: write routes
 const publicRouter = require("./routes/index");
 app.use("/", publicRouter);
-console.log(publicRouter);
 const authRouter = require("./routes/auth");
 app.use("/auth", authRouter);
-console.log(authRouter);
+const privateRouter = require("./routes/private");
+app.use("/private", privateRouter);
 
 // error handler
 app.use(function (err, req, res, next) {

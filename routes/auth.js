@@ -4,7 +4,7 @@ const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
-// TODO pwd conditions, need add code below
+// TODO: pwd conditions, need add code below
 // const zxcvbn = require("zxcvbn");
 
 // =====================================================
@@ -44,8 +44,8 @@ authRouter.post("/signup", (req, res, next) => {
       const hashedPassword = bcrypt.hashSync(password, salt);
       User.create({ email, name, password: hashedPassword, mobile })
         .then((createdUser) => {
-          // TODO: user's home page already logged-in
-          res.redirect("/");
+          req.session.currentUser = createdUser;
+          res.redirect(`/private/habit-dashboard`);
         })
         .catch((err) => {
           res.render("auth/signup", {
@@ -72,9 +72,6 @@ authRouter.get("/login", function (req, res, next) {
 authRouter.post("/login", (req, res, next) => {
   // Check if the username and password are provided
   const { email, password } = req.body;
-
-  console.log("\n\n\n----------->>>  ", req.body);
-
   if (email === "" || password === "") {
     // > if username or password are not provided
     res.render("auth/login", {
@@ -95,10 +92,9 @@ authRouter.post("/login", (req, res, next) => {
       }
       const passwordCorrect = bcrypt.compareSync(password, user.password);
       if (passwordCorrect) {
-        console.log("login succeful");
-        console.log(req.session);
         req.session.currentUser = user;
-        res.redirect("/");
+        // res.redirect(`/`);
+        res.redirect(`/private/habit-dashboard`);
       } else {
         res.render("auth/login", {
           errorMessage: "Indicate email and password",
@@ -108,7 +104,7 @@ authRouter.post("/login", (req, res, next) => {
     .catch((err) => console.log(err));
 });
 
-// GET     /auth/logout
+// GET  /auth/logout
 authRouter.get("/logout", (req, res, next) => {
   req.session.destroy(function (err) {
     if (err) {
