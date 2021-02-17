@@ -5,18 +5,23 @@
 <form action='/auth/signup' method='POST'>
   <h2>Sign Up</h2>
   <div>
-  <label for='usernane'>email</label>
-  <input type='email' name='username' minlength="4">
+  <label for='name'>Name</label>
+  <input type='text' name='name' minlength="4">
   </div>
   <br>
   <div>
-  <label for='password'>Phone (optional)</label>
-  <input type='password' name='password' minlength="5">
+  <label for='email'>email</label>
+  <input type='email' name='email' minlength="6">
   </div>
   <br>
   <div>
-  <label for=''>Mobile</label>
+  <label for=''>Mobile (optional)</label>
   <input type='tel' name='mobile' minlength="5">
+  </div>
+  <br>
+  <div>
+  <label for='password'>Password</label>
+  <input type='password' name='password' minlength="5">
   </div>
 
   <button type='submit'>signup</button>  

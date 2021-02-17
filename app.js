@@ -1,4 +1,4 @@
-//"use strict";
+"use strict";
 
 // MODULES
 // model
@@ -9,6 +9,8 @@ const express = require("express");
 // control-middleware
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const session = require("express-session");
+const MongoStore = require("connect-mongo")(session);
 
 // view
 const hbs = require("hbs");
@@ -25,6 +27,9 @@ const app_name = require("./package.json").name;
 const debug = require("debug")(
   `${app_name}:${path.basename(__filename).split(".")[0]}`
 );
+
+// TODO:  env setup
+// require("dotenv").config();
 
 // setup up monngo
 require("./configs/db.config");
@@ -44,6 +49,21 @@ app.use(
     src: path.join(__dirname, "public"),
     dest: path.join(__dirname, "public"),
     sourceMap: true,
+  })
+);
+
+// tells to express to use the session function for cookies
+// SESSION(COOKIES) MIDDLEWARE
+app.use(
+  session({
+    secret: "mambojamboladygagafreddymercury",
+    // cookie: { maxAge: 3600000 * 1 },	// 1 hour
+    resave: true,
+    saveUninitialized: false,
+    store: new MongoStore({
+      mongooseConnection: mongoose.connection,
+      ttl: 60 * 60 * 24 * 7, // Time to live - 7 days (14 days - Default)
+    }),
   })
 );
 
