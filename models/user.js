@@ -11,7 +11,6 @@ const userSchema = new Schema({
   verified: { type: Boolean, default: true },
   dateTimeUpdate: { type: Date, default: Date.now },
   dateTimeLogin: { type: Date, default: Date.now },
-  // backlog:  location: String,
 });
 
 const User = mongoose.model("User", userSchema);

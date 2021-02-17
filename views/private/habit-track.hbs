@@ -1,0 +1,20 @@
+  <h2>Habits Track</h2>
+  
+  <div id="habit-list">
+    <div class=habit-track"></div>
+        <a href="/private/habit-dashboard"><button>Dashboard</button></a>
+        <br> 
+        <div><h2>"Description: {{description}}"</h2></div> 
+        <div><h4>"AP name: {{ap.name}}"</h4></div>
+        <div><h4>"Cue Day: {{cueDay}}"</h4></div>   
+        <div><h4><span>"Number of punches:" {{punch.length}}</span></h4></div>
+        <br>
+        {{#each this.punch}}
+            <div><h2>"--- >> {{this}}"</h2></div>
+        {{/each}}
+        <br>
+        <br>
+        {{_id}}
+        <a href="/private/habit-punch/{{_id}}"><button>Punch It Dude!</button></a>
+      </div>
+  </div>

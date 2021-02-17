@@ -3,11 +3,7 @@ const privateRouter = express.Router();
 const User = require("../models/user");
 const Habit = require("../models/habit");
 const Ap = require("../models/ap");
-const bcrypt = require("bcrypt");
 const saltRounds = 10;
-
-// TODO:s pwd conditions, need add code below
-// const zxcvbn = require("zxcvbn");
 
 // =====================================================
 // =====================================================
@@ -15,27 +11,45 @@ const saltRounds = 10;
 // =====================================================
 // =====================================================
 
+const buildHabitSummary = async (user) => {
+  try {
+    return await Habit.find({ user: user._id }).populate("ap");
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 privateRouter.get("/habit-dashboard", function (req, res, next) {
   currentUser = req.session.currentUser;
-  console.log(currentUser);
+  buildHabitSummary(currentUser).then((data) => {
+    res.render("private/habit-dashboard", { habits: data });
+  });
+});
 
-  Habit.find({ user: currentUser._id })
-    .then((allHabits) => {
-      const data = {
-        allHabits: allHabits,
-      };
-      console.log("allHabits", data);
+const habitSummary = async (habitId) => {
+  try {
+    return await Habit.find({ _id: habitId }).populate("ap");
+  } catch (err) {
+    console.log(err);
+  }
+};
 
-      for (habit of data.allHabits) {
-        console.log("--------");
-        console.log(habit);
-      }
+privateRouter.get("/habit-track/:id", function (req, res, next) {
+  habitId = req.params.id;
+  habitSummary(habitId).then((data) => {
+    res.render("private/habit-track", data[0]);
+  });
+});
 
-      // res.render("private/habit-dashboard", data);
+privateRouter.get("/habit-punch/:id", function (req, res, next) {
+  habitId = req.params.id;
+  Habit.findByIdAndUpdate(habitId, { $push: { punch: Date.now() } })
+    .then((x) => {
+      console.log("habit:\n", x);
+      console.log("habit:\n", x.description);
+      res.redirect(`/private/habit-track/${habitId}`);
     })
-    .catch((err) => next(err));
-
-  // res.render("private/habit-dashboard", { title: "HAbitRocket" });
+    .catch((err) => console.log(err));
 });
 
 module.exports = privateRouter;

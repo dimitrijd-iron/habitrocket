@@ -93,7 +93,6 @@ authRouter.post("/login", (req, res, next) => {
       const passwordCorrect = bcrypt.compareSync(password, user.password);
       if (passwordCorrect) {
         req.session.currentUser = user;
-        // res.redirect(`/`);
         res.redirect(`/private/habit-dashboard`);
       } else {
         res.render("auth/login", {
