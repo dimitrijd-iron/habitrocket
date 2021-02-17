@@ -54,23 +54,21 @@ Punch in your wins everyday and soon your habit will become you! :rocket:
 
 ```javascript
 { email: { type: String, required: "Email is required", unique: true },
-  name: { type: String, required: "Name is required" },
-  password: { type: String, required: "Password is required" },
-  mobile: String,
-  tc: { type: Boolean, default: true },
-  dateTimeSignup: { type: Date, default: Date.now },
-  verified: { type: Boolean, default: true },
-  dateTimeUpdate: { type: Date, default: Date.now },
-  dateTimeLogin: { type: Date, default: Date.now },
-  // backlog:  location: String,
+   name: { type: String, required: "Name is required" },
+   password: { type: String, required: "Password is required" },
+   mobile: String,
+   tc: { type: Boolean, default: true },
+   dateTimeSignup: { type: Date, default: Date.now },
+   verified: { type: Boolean, default: true },
+   dateTimeUpdate: { type: Date, default: Date.now },
+   dateTimeLogin: { type: Date, default: Date.now },
 }
 ```
 
 `AccountabilityPartner`
 
 ```javascript
-{ user: { type: Schema.Types.ObjectId, ref: "User" },
-   email: { type: String, required: "Email is required" },
+{ email: { type: String, required: "Email is required" },
    name: { type: String, required: "Name is required" },
    dateTimePush: { type: Date, default: Date.now },
    verified: { type: Boolean, default: false },
@@ -84,13 +82,10 @@ Punch in your wins everyday and soon your habit will become you! :rocket:
 { user: { type: Schema.Types.ObjectId, ref: "User" },
    description: String,
    dateTimeRegistered: { type: Date, default: Date.now },
-   cueDay: [String],  // ["Mon", "Wed", "Thu"] 
+   cueDay: [String], // ["Mon", "Wed", "Thu"]
    cueTime: [String], // array matching cueDay 07:77 format, 24H, trailing zeros 23:59
    cueMedium: String,
-   accountabilityPartner: {
-     type: Schema.Types.ObjectId,
-     ref: "AccountabilityPartner",
-   },
+   ap: { type: Schema.Types.ObjectId, ref: "Ap" },
    push: [{ type: Date, default: Date.now }],
    punch: [{ type: Date, default: Date.now }],
 }
