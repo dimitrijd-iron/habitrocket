@@ -53,16 +53,16 @@ Punch in your wins everyday and soon your habit will become you! :rocket:
 `User`
 
 ```javascript
-{ email: { type: String, required: "Name is required" },
-   name: { type: String, required: "Email is required", unique: true },
-   password: { type: String, required: "Password is required" },
-   phone: String,
-   tc: { type: Boolean, required: true },
-   dateTimeSignup: { type: Date, default: Date.now },
-   verified: { type: Boolean, default: false },
-   dateTimeUpdate: { type: Date, default: Date.now },
-   dateTimeLogin: { type: Date, default: Date.now },
-   // backlog:  location: String,
+{ email: { type: String, required: "Email is required", unique: true },
+  name: { type: String, required: "Name is required" },
+  password: { type: String, required: "Password is required" },
+  mobile: String,
+  tc: { type: Boolean, default: true },
+  dateTimeSignup: { type: Date, default: Date.now },
+  verified: { type: Boolean, default: true },
+  dateTimeUpdate: { type: Date, default: Date.now },
+  dateTimeLogin: { type: Date, default: Date.now },
+  // backlog:  location: String,
 }
 ```
 
