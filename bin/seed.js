@@ -10,7 +10,7 @@ const users = [
   {
     email: "ceo@mars-server-01.jljl123.com",
     name: "John Locke",
-    phone: undefined,
+    mobile: undefined,
     password: bcrypt.hashSync("marsismine", salt),
     tc: true,
     dateTimeSignup: undefined,
@@ -18,10 +18,10 @@ const users = [
     dateTimeLogin: undefined,
   },
   {
-    email: "random-joe43673@google.com",
+    email: "joe@joe.com",
     name: "Joe Rand",
-    phone: +15551234567,
-    password: bcrypt.hashSync("1l0v3donuts!", salt),
+    mobile: +15551234567,
+    password: bcrypt.hashSync("12345", salt),
     tc: true,
     dateTimeSignup: undefined,
     dateTimeUpdate: undefined,
@@ -30,7 +30,7 @@ const users = [
   {
     email: "dimitrijdugan@gmail.com",
     name: "Dimitrij Dugan",
-    phone: +341234567,
+    mobile: +341234567,
     password: bcrypt.hashSync("!D0Agree0nTheD0nuts", salt),
     tc: true,
     dateTimeSignup: undefined,
