@@ -59,6 +59,7 @@ const createHabit = async (habit, userId) => {
   try {
     let cueTime = [];
     let cueDay = [];
+    let cueDayTime = {};
     habit.Mon ? cueDay.push("Mon") && cueTime.push(habit.MonTime) : "";
     habit.Tue ? cueDay.push("Tue") && cueTime.push(habit.TueTime) : "";
     habit.Wed ? cueDay.push("Wed") && cueTime.push(habit.WedTime) : "";
@@ -66,6 +67,15 @@ const createHabit = async (habit, userId) => {
     habit.Fri ? cueDay.push("Fri") && cueTime.push(habit.FriTime) : "";
     habit.Sat ? cueDay.push("Sat") && cueTime.push(habit.SatTime) : "";
     habit.Sun ? cueDay.push("Sun") && cueTime.push(habit.SunTime) : "";
+
+    habit.Mon ? (cueDayTime["Mon"] = habit.MonTime) : "";
+    habit.Tue ? (cueDayTime["Tue"] = habit.TueTime) : "";
+    habit.Wed ? (cueDayTime["Wed"] = habit.WedTime) : "";
+    habit.Thu ? (cueDayTime["Thu"] = habit.ThuTime) : "";
+    habit.Fri ? (cueDayTime["Fri"] = habit.FriTime) : "";
+    habit.Sat ? (cueDayTime["Sat"] = habit.SatTime) : "";
+    habit.Sun ? (cueDayTime["Sun"] = habit.SunTime) : "";
+
     let createdAp = await Ap.create({
       name: habit.ApName,
       email: habit.ApEmail,
@@ -75,6 +85,7 @@ const createHabit = async (habit, userId) => {
       description: habit.description,
       cueDay,
       cueTime,
+      cueDayTime,
       ap: createdAp._id,
     });
     return createdHabit;
@@ -110,35 +121,3 @@ privateRouter.get("/habit-update/:id", function (req, res, next) {
 });
 
 module.exports = privateRouter;
-
-// {
-//   cueDay: [ 'Sat' ],
-//   cueTime: [ '10:30' ],
-//   cueMedium: 'email',
-//   push: [
-//     2020-12-26T10:30:00.000Z,
-//     2021-01-02T10:30:00.000Z,
-//     2021-01-09T10:30:00.000Z,
-
-//   ],
-//   punch: [
-//     2020-12-26T16:30:00.000Z,
-//     2021-01-02T16:30:00.000Z,
-//     2021-01-09T16:30:00.000Z,
-//     2021-01-30T16:30:00.000Z,
-//   ],
-//   _id: 602dab01d2898e548f58ab81,
-//   user: 602dab01d2898e548f58ab77,
-//   description: 'read a book recommended by Bill Gate',
-//   ap: {
-//     verified: false,
-//     _id: 602dab01d2898e548f58ab7b,
-//     email: 'tomohiro@xkae.com',
-//     name: 'Tanaka Tomohiro',
-//     dateTimePush: 2021-02-17T23:47:13.399Z,
-//     dateTimeVerified: 2021-02-17T23:47:13.399Z,
-//     __v: 0
-//   },
-//   dateTimeRegistered: 2021-02-17T23:47:13.750Z,
-//   __v: 0
-// }

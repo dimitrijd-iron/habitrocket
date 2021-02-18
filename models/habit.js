@@ -5,6 +5,7 @@ const habitSchema = new Schema({
   user: { type: Schema.Types.ObjectId, ref: "User" },
   description: String,
   dateTimeRegistered: { type: Date, default: Date.now },
+  cueDayTime: {},
   cueDay: [String], // ["Mon", "Wed", "Thu"]
   cueTime: [String], // array matching cueDay 07:77 format, 24H, trailing zeros 23:59
   cueMedium: { type: String, default: "email" },

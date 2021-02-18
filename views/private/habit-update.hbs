@@ -1,0 +1,87 @@
+  <h2>Update Your Habit - Don't Cheat!</h2>
+  
+  <form id="habit-form" action='/private/habit-update' method='POST'>
+   <div>
+   <label for='description'>Description</label>
+   <input type='text' name='description' minlength="1" value="{{description}}">
+   </div>
+   <br>
+
+   <input type="checkbox" id="Mon" name="Mon" value="Mon" {{#if cueDayTime.[Mon]}}checked='true'{{/if}}> 
+   <label for="Mon"> Mon </label>
+   <input type="time" id="MonTime" name="MonTime" {{#if cueDayTime.[Mon]}}value="{{cueDayTime.[Mon]}}"{{/if}}>
+   <br>
+   <input type="checkbox" id="Tue" name="Tue" value="Tue" {{#if cueDayTime.[Tue]}}checked='true'{{/if}}> 
+   <label for="Tue"> Tue </label>
+   <input type="time" id="TueTime" name="TueTime" {{#if cueDayTime.[Tue]}}value="{{cueDayTime.[Tue]}}"{{/if}}>
+   <br>
+   <input type="checkbox" id="Wed" name="Wed" value="Wed" {{#if cueDayTime.[Wed]}}checked='true'{{/if}}> 
+   <label for="Wed"> Wed </label>
+   <input type="time" id="WedTime" name="WedTime" {{#if cueDayTime.[Wed]}}value="{{cueDayTime.[Wed]}}"{{/if}}>
+   <br>
+   <input type="checkbox" id="Thu" name="Thu" value="Thu" {{#if cueDayTime.[Thu]}}checked='true'{{/if}}> 
+   <label for="Thu"> Thu </label>
+   <input type="time" id="ThuTime" name="ThuTime" {{#if cueDayTime.[Thu]}}value="{{cueDayTime.[Thu]}}"{{/if}}>
+   <br>
+   <input type="checkbox" id="Fri" name="Fri" value="Fri" {{#if cueDayTime.[Fri]}}checked='true'{{/if}}> 
+   <label for="Fri"> Fri </label>
+   <input type="time" id="FriTime" name="FriTime" {{#if cueDayTime.[Fri]}}value="{{cueDayTime.[Fri]}}"{{/if}}>
+   <br>
+   <input type="checkbox" id="Sat" name="Sat" value="Sat" {{#if cueDayTime.[Sat]}}checked='true'{{/if}}> 
+   <label for="Sat"> Sat </label>
+   <input type="time" id="SatTime" name="SatTime" {{#if cueDayTime.[Sat]}}value="{{cueDayTime.[Sat]}}"{{/if}}>
+   <br>
+   <input type="checkbox" id="Sun" name="Sun" value="Sun" {{#if cueDayTime.[Sun]}}checked='true'{{/if}}> 
+   <label for="Sun"> Sun </label>
+   <input type="time" id="SunTime" name="SunTime" {{#if cueDayTime.[Sun]}}value="{{cueDayTime.[Sun]}}"{{/if}}>
+
+
+
+   <div>
+   <label for='name'>Accountability Partner name</label>
+   <input type='text' name='ApName' minlength="1" value="{{ap.name}}">
+   </div>
+   <div>
+   <label for='email'>Accountability Partner email</label>
+   <input type='email' name='ApEmail' minlength="6" value="{{ap.email}}">
+   </div>
+   <br>
+  <button type='submit'>update habit</button>  
+
+</form>
+
+ <a href="/private/habit-delete/{{_id}}"><button>delete habit</button></a>
+
+
+
+
+   {{!-- <div>
+        <input type="checkbox" id="Mon" name="Mon" value="Mon" {{#if (isInArray cueDay "Mon")}}checked='true'{{/if}}> 
+        <label for="Mon"> Mon </label>
+        <input type="time" id="MonTime" name="MonTime" {{#if (isInArray cueDay "Mon")}}value="03:30"{{/if}}>
+        <br>
+        <input type="checkbox" id="Tue" name="Tue" value="Tue"{{#if (isInArray cueDay "Tue")}}checked='true'{{/if}}>
+        <label for="Tue"> Tue </label>
+        <input type="time" id="TueTime" name="TueTime" {{#if (isInArray cueDay "Tue")}}value="07:30"{{/if}}>
+        <br>
+        <input type="checkbox" id="Wed" name="Wed" value="Wed"{{#if (isInArray cueDay "Wed")}}checked='true'{{/if}}>
+        <label for="Wed"> Wed </label>
+        <input type="time" id="WedTime" name="WedTime" {{#if (isInArray cueDay "Wed")}}value="09:30"{{/if}}>
+        <br>
+        <input type="checkbox" id="Thu" name="Thu" value="Thu" {{#if (isInArray cueDay "Thu")}}checked='true'{{/if}}>
+        <label for="Thu"> Thu </label>
+        <input type="time" id="ThuTime" name="ThuTime" {{#if (isInArray cueDay "Thu")}}value="09:30"{{/if}}>
+        <br>
+        <input type="checkbox" id="Fri" name="Fri" value="Fri" {{#if (isInArray cueDay "Fri")}}checked='true'{{/if}}>
+        <label for="Fri"> Fri </label>
+        <input type="time" id="FriTime" name="FriTime" {{#if (isInArray cueDay "Fri")}}value="09:30"{{/if}}>
+        <br>
+        <input type="checkbox" id="Sat" name="Sat" value="Sat" {{#if (isInArray cueDay "Sat")}}checked='true'{{/if}}>
+        <label for="Sat"> Sat </label>
+        <input type="time" id="SatTime" name="SatTime" {{#if (isInArray cueDay "Sat")}}value={{(elementOfArray cueTime 0)}}{{/if}}>
+        <br>
+        <input type="checkbox" id="Sun" name="Sun" value="Sun"{{#if (isInArray cueDay "Sun")}}checked='true'{{/if}}>
+        <label for="Sun"> Sun </label>
+        <input type="time" id="SunTime" name="SunTime" {{#if (isInArray cueDay "Sun")}}value="09:30"{{/if}}>
+        <br>
+    </div>   --}}

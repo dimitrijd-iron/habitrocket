@@ -7,6 +7,13 @@
         <div><h2>"Description: {{description}}"</h2></div> 
         <div><h4>"AP name: {{ap.name}}"</h4></div>
         <div><h4>"Cue Day: {{cueDay}}"</h4></div>   
+        <div><h4>"Cue DayTime: Mon:{{this.cueDayTime.Mon}} 
+                            Tue:{{this.cueDayTime.Tue}} 
+                            Wed:{{this.cueDayTime.Wed}} 
+                            Thu:{{this.cueDayTime.Thu}} 
+                            Fri:{{this.cueDayTime.Fri}} 
+                            Sat:{{this.cueDayTime.Sat}} 
+                            Sun:{{this.cueDayTime.Sun}} "</h4></div> 
         <div><h4><span>"Number of punches:" {{punch.length}}</span></h4></div>
         <br>
         {{#each this.punch}}

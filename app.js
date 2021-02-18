@@ -78,8 +78,8 @@ hbs.registerHelper("isInArray", function (array, value) {
 hbs.registerHelper("elementOfArray", function (array, index) {
   return array[index];
 });
-hbs.registerHelper("caps", function (text) {
-  return text.toUpperCase();
+hbs.registerHelper("isDefined", function (object, property) {
+  return object[property] ? object[property] : false;
 });
 
 // STATIC ASSETS
