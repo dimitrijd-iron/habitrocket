@@ -98,4 +98,47 @@ privateRouter.get("/habit-delete/:id", function (req, res, next) {
   return;
 });
 
+privateRouter.get("/habit-update/:id", function (req, res, next) {
+  let habitID = req.params.id;
+  Habit.findById(habitId)
+    .populate("ap")
+    .then((habit) => {
+      console.log(habit);
+      res.render("private/habit-update", habit);
+    })
+    .catch((err) => console.log(err));
+});
+
 module.exports = privateRouter;
+
+// {
+//   cueDay: [ 'Sat' ],
+//   cueTime: [ '10:30' ],
+//   cueMedium: 'email',
+//   push: [
+//     2020-12-26T10:30:00.000Z,
+//     2021-01-02T10:30:00.000Z,
+//     2021-01-09T10:30:00.000Z,
+
+//   ],
+//   punch: [
+//     2020-12-26T16:30:00.000Z,
+//     2021-01-02T16:30:00.000Z,
+//     2021-01-09T16:30:00.000Z,
+//     2021-01-30T16:30:00.000Z,
+//   ],
+//   _id: 602dab01d2898e548f58ab81,
+//   user: 602dab01d2898e548f58ab77,
+//   description: 'read a book recommended by Bill Gate',
+//   ap: {
+//     verified: false,
+//     _id: 602dab01d2898e548f58ab7b,
+//     email: 'tomohiro@xkae.com',
+//     name: 'Tanaka Tomohiro',
+//     dateTimePush: 2021-02-17T23:47:13.399Z,
+//     dateTimeVerified: 2021-02-17T23:47:13.399Z,
+//     __v: 0
+//   },
+//   dateTimeRegistered: 2021-02-17T23:47:13.750Z,
+//   __v: 0
+// }

@@ -71,6 +71,17 @@ app.use(
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
 
+// HANDLEBARS HELPERS
+hbs.registerHelper("isInArray", function (array, value) {
+  return array.indexOf(value) > -1 ? true : false;
+});
+hbs.registerHelper("elementOfArray", function (array, index) {
+  return array[index];
+});
+hbs.registerHelper("caps", function (text) {
+  return text.toUpperCase();
+});
+
 // STATIC ASSETS
 app.use(express.static(path.join(__dirname, "public")));
 
