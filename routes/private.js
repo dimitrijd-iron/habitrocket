@@ -52,33 +52,50 @@ privateRouter.get("/habit-punch/:id", function (req, res, next) {
 });
 
 privateRouter.get("/habit-add", function (req, res, next) {
-  console.log("~~~~ GET /habit/add ~~~~");
   res.render(`private/habit-form`);
 });
 
+const createHabit = async (habit, userId) => {
+  try {
+    let cueTime = [];
+    let cueDay = [];
+    habit.Mon ? cueDay.push("Mon") && cueTime.push(habit.MonTime) : "";
+    habit.Tue ? cueDay.push("Tue") && cueTime.push(habit.TueTime) : "";
+    habit.Wed ? cueDay.push("Wed") && cueTime.push(habit.WedTime) : "";
+    habit.Thu ? cueDay.push("Thu") && cueTime.push(habit.ThuTime) : "";
+    habit.Fri ? cueDay.push("Fri") && cueTime.push(habit.FriTime) : "";
+    habit.Sat ? cueDay.push("Sat") && cueTime.push(habit.SatTime) : "";
+    habit.Sun ? cueDay.push("Sun") && cueTime.push(habit.SunTime) : "";
+    let createdAp = await Ap.create({
+      name: habit.ApName,
+      email: habit.ApEmail,
+    });
+    let createdHabit = await Habit.create({
+      user: userId,
+      description: habit.description,
+      cueDay,
+      cueTime,
+      ap: createdAp._id,
+    });
+    return createdHabit;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 privateRouter.post("/habit-add", function (req, res, next) {
-  console.log("~~~ POST /habit/add ~~~");
   let data = req.body;
   let user = req.session.currentUser._id;
-  console.log("=========>>>>>>", data);
-  let description = data.description;
-  let cueTime = [];
-  let cueDay = [];
-  data.Mon ? cueDay.push("Mon") && cueTime.push(data.MonTime) : "";
-  data.Tue ? cueDay.push("Tue") && cueTime.push(data.TueTime) : "";
-  data.Wed ? cueDay.push("Wed") && cueTime.push(data.WedTime) : "";
-  data.Thu ? cueDay.push("Thu") && cueTime.push(data.ThuTime) : "";
-  data.Fri ? cueDay.push("Fri") && cueTime.push(data.FriTime) : "";
-  data.Sat ? cueDay.push("Sat") && cueTime.push(data.SatTime) : "";
-  data.Sun ? cueDay.push("Sun") && cueTime.push(data.SunTime) : "";
-  console.log(user, description, cueDay, cueTime);
-  let newHabit = { user, description, cueDay, cueTime };
-  Habit.create(newHabit)
-    .then((createdHabit) => {
-      console.log("added: ", createdHabit);
-      res.redirect("/private/habit-dashboard");
-    })
-    .catch((err) => next(err));
+  createHabit(data, user).then(() => res.redirect("/private/habit-dashboard"));
+  return;
+});
+
+privateRouter.get("/habit-delete/:id", function (req, res, next) {
+  let habitID = req.params.id;
+  Habit.deleteOne({ _id: habitId })
+    .then(() => res.redirect("/private/habit-dashboard"))
+    .catch((err) => console.log(err));
+  return;
 });
 
 module.exports = privateRouter;
