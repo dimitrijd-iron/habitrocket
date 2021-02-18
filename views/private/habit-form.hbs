@@ -1,0 +1,50 @@
+  <h2>Add Your New Habit</h2>
+  
+  <form id="habit-form" action='/private/habit-add' method='POST'>
+   <div>
+   <label for='description'>Description</label>
+   <input type='text' name='description' minlength="1">
+   </div>
+   <br>
+   <div>
+    <input type="checkbox" id="Mon" name="Mon" value="Tru">
+    <label for="Mon"> Mon </label>
+    <input type="time" id="MonTime" name="MonTime" value="08:00">
+    <br>
+    <input type="checkbox" id="Tue" name="Tue" value="Tue">
+    <label for="Tue"> Tue </label>
+    <input type="time" id="TueTime" name="TueTime" value="08:00">
+    <br>
+    <input type="checkbox" id="Wed" name="Wed" value="Wed">
+    <label for="Wed"> Wed </label>
+    <input type="time" id="WedTime" name="WedTime" value="08:00">
+    <br>
+    <input type="checkbox" id="Thu" name="Thu" value="Thu">
+    <label for="Thu"> Thu </label>
+    <input type="time" id="ThuTime" name="ThuTime" value="08:00">
+    <br>
+    <input type="checkbox" id="Fri" name="Fri" value="Fri">
+    <label for="Fri"> Fri </label>
+    <input type="time" id="FriTime" name="FriTime" value="08:00">
+    <br>
+    <input type="checkbox" id="Sat" name="Sat" value="Sat">
+    <label for="Sat"> Sat </label>
+    <input type="time" id="SatTime" name="SatTime" value="08:00">
+    <br>
+    <input type="checkbox" id="Sun" name="Sun" value="Sun">
+    <label for="Sun"> Sun </label>
+    <input type="time" id="SunTime" name="SunTime" value="08:00">
+    <br>
+   <div>
+   <label for='name'>Accountability Partner name</label>
+   <input type='text' name='ApName' minlength="1">
+   </div>
+   <div>
+   <label for='email'>Accountability Partner email</label>
+   <input type='email' name='ApEmail' minlength="6">
+   </div>
+   <br>
+  <button type='submit'>register habit</button>  
+
+</form>
+
