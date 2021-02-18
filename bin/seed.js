@@ -48,8 +48,6 @@ const aps = [
 const habits = [
   {
     description: "floss",
-    cueDay: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-    cueTime: ["07:30", "07:30", "07:30", "07:30", "07:30", "09:00", "09:00"],
     cueDayTime: {
       Mon: "07:30",
       Tue: "07:30",
@@ -63,8 +61,6 @@ const habits = [
   },
   {
     description: "post random stuff on Medium",
-    cueDay: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-    cueTime: ["18:30", "18:30", "18:30", "18:30", "18:30", "18:30", "18:30"],
     cueDayTime: {
       Mon: "18:30",
       Tue: "18:30",
@@ -78,8 +74,6 @@ const habits = [
   },
   {
     description: "read a book recommended by Bill Gate",
-    cueDay: ["Sat"],
-    cueTime: "10:30",
     cueDayTime: {
       Mon: undefined,
       Tue: undefined,

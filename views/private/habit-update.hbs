@@ -1,6 +1,6 @@
   <h2>Update Your Habit - Don't Cheat!</h2>
   
-  <form id="habit-form" action='/private/habit-update' method='POST'>
+  <form id="habit-form" action='/private/habit-update/{{_id}}' method='POST'>
    <div>
    <label for='description'>Description</label>
    <input type='text' name='description' minlength="1" value="{{description}}">
@@ -34,9 +34,6 @@
    <input type="checkbox" id="Sun" name="Sun" value="Sun" {{#if cueDayTime.[Sun]}}checked='true'{{/if}}> 
    <label for="Sun"> Sun </label>
    <input type="time" id="SunTime" name="SunTime" {{#if cueDayTime.[Sun]}}value="{{cueDayTime.[Sun]}}"{{/if}}>
-
-
-
    <div>
    <label for='name'>Accountability Partner name</label>
    <input type='text' name='ApName' minlength="1" value="{{ap.name}}">

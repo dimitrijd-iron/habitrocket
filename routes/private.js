@@ -57,17 +57,7 @@ privateRouter.get("/habit-add", function (req, res, next) {
 
 const createHabit = async (habit, userId) => {
   try {
-    let cueTime = [];
-    let cueDay = [];
     let cueDayTime = {};
-    habit.Mon ? cueDay.push("Mon") && cueTime.push(habit.MonTime) : "";
-    habit.Tue ? cueDay.push("Tue") && cueTime.push(habit.TueTime) : "";
-    habit.Wed ? cueDay.push("Wed") && cueTime.push(habit.WedTime) : "";
-    habit.Thu ? cueDay.push("Thu") && cueTime.push(habit.ThuTime) : "";
-    habit.Fri ? cueDay.push("Fri") && cueTime.push(habit.FriTime) : "";
-    habit.Sat ? cueDay.push("Sat") && cueTime.push(habit.SatTime) : "";
-    habit.Sun ? cueDay.push("Sun") && cueTime.push(habit.SunTime) : "";
-
     habit.Mon ? (cueDayTime["Mon"] = habit.MonTime) : "";
     habit.Tue ? (cueDayTime["Tue"] = habit.TueTime) : "";
     habit.Wed ? (cueDayTime["Wed"] = habit.WedTime) : "";
@@ -83,8 +73,34 @@ const createHabit = async (habit, userId) => {
     let createdHabit = await Habit.create({
       user: userId,
       description: habit.description,
-      cueDay,
-      cueTime,
+      cueDayTime,
+      ap: createdAp._id,
+    });
+    return createdHabit;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const updateHabit = async (habitID, updatedHabitData) => {
+  try {
+    let cueDayTime = {};
+    habit.Mon ? (cueDayTime["Mon"] = habit.MonTime) : "";
+    habit.Tue ? (cueDayTime["Tue"] = habit.TueTime) : "";
+    habit.Wed ? (cueDayTime["Wed"] = habit.WedTime) : "";
+    habit.Thu ? (cueDayTime["Thu"] = habit.ThuTime) : "";
+    habit.Fri ? (cueDayTime["Fri"] = habit.FriTime) : "";
+    habit.Sat ? (cueDayTime["Sat"] = habit.SatTime) : "";
+    habit.Sun ? (cueDayTime["Sun"] = habit.SunTime) : "";
+
+    let updatedAp = await Ap.create({
+      name: habit.ApName,
+      email: habit.ApEmail,
+    });
+
+    let createdHabit = await Habit.create({
+      user: userId,
+      description: habit.description,
       cueDayTime,
       ap: createdAp._id,
     });
@@ -120,4 +136,97 @@ privateRouter.get("/habit-update/:id", function (req, res, next) {
     .catch((err) => console.log(err));
 });
 
+privateRouter.post("/habit-update/:id", function (req, res, next) {
+  let habitID = req.params.id;
+  console.log(habitID);
+  console.log("-------req body:\n");
+  console.log(req.body);
+  Habit.findById(habitId)
+    .populate("ap")
+    .then((habit) => {
+      console.log("------habit from mongo:\n");
+      console.log(habit);
+
+      res.redirect("/private/habit-dashboard");
+    })
+    .catch((err) => console.log(err));
+});
+
 module.exports = privateRouter;
+
+
+[Object: null prototype] {
+  description: 'floss sometimes',
+  Mon: 'Mon',
+  MonTime: '07:30',
+  TueTime: '',
+  Wed: 'Wed',
+  WedTime: '07:30',
+  Thu: 'Thu',
+  ThuTime: '07:30',
+  FriTime: '',
+  Sat: 'Sat',
+  SatTime: '09:00',
+  Sun: 'Sun',
+  SunTime: '09:00',
+  ApName: 'Jenny Red',
+  ApEmail: 'jennyred@xkae.com'
+}
+------habit from mongo:
+
+{
+  cueMedium: 'email',
+  push: [
+    2021-01-29T07:30:00.000Z,
+    2021-01-30T07:30:00.000Z,
+    2021-01-31T07:30:00.000Z,
+    2021-01-01T07:30:00.000Z,
+    2021-01-02T07:30:00.000Z,
+    2021-01-03T07:30:00.000Z,
+    2021-01-04T07:30:00.000Z,
+    2021-01-05T07:30:00.000Z,
+    2021-01-06T07:30:00.000Z,
+    2021-01-07T07:30:00.000Z,
+    2021-01-08T07:30:00.000Z,
+    2021-01-09T07:30:00.000Z
+  ],
+  punch: [
+    2021-01-29T08:45:00.000Z,
+    2021-01-30T08:45:00.000Z,
+    2021-01-31T08:45:00.000Z,
+    2021-01-01T08:45:00.000Z,
+    2021-01-02T08:45:00.000Z,
+    2021-01-04T08:45:00.000Z,
+    2021-01-05T08:45:00.000Z,
+    2021-01-07T08:45:00.000Z,
+    2021-01-08T08:45:00.000Z,
+    2021-01-09T08:45:00.000Z
+  ],
+  _id: 602eab33de690edc61146772,
+  user: 602eab32de690edc6114676a,
+  description: 'floss',
+  cueDayTime: {
+    Mon: '07:30',
+    Tue: '07:30',
+    Wed: '07:30',
+    Thu: '07:30',
+    Fri: '07:30',
+    Sat: '09:00',
+    Sun: '09:00'
+  },
+  ap: {
+    verified: true,
+    _id: 602eab33de690edc6114676c,
+    email: 'jennyred@xkae.com',
+    name: 'Jenny Red',
+    dateTimePush: 2021-02-18T18:00:19.016Z,
+    dateTimeVerified: 2021-02-18T18:00:19.016Z,
+    __v: 0
+  },
+  dateTimeRegistered: 2021-02-18T18:00:19.413Z,
+  __v: 0
+}
+POST /private/habit-update/602eab33de690edc61146772 302 9.677 ms - 92
+in private dashboard
+GET /private/habit-dashboard 304 14.819 ms - -
+GET /images/logo.png 304 6.059 ms - -
