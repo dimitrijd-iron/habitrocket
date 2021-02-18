@@ -65,7 +65,6 @@ const createHabit = async (habit, userId) => {
     habit.Fri ? (cueDayTime["Fri"] = habit.FriTime) : "";
     habit.Sat ? (cueDayTime["Sat"] = habit.SatTime) : "";
     habit.Sun ? (cueDayTime["Sun"] = habit.SunTime) : "";
-
     let createdAp = await Ap.create({
       name: habit.ApName,
       email: habit.ApEmail,
@@ -82,29 +81,30 @@ const createHabit = async (habit, userId) => {
   }
 };
 
-const updateHabit = async (habitID, updatedHabitData) => {
+const updateHabit = async (habitId, habitUpdate) => {
+  console.log("req.body---->>> \n", habitUpdate);
+  console.log("habitId---->>> \n", habitId);
   try {
-    let cueDayTime = {};
-    habit.Mon ? (cueDayTime["Mon"] = habit.MonTime) : "";
-    habit.Tue ? (cueDayTime["Tue"] = habit.TueTime) : "";
-    habit.Wed ? (cueDayTime["Wed"] = habit.WedTime) : "";
-    habit.Thu ? (cueDayTime["Thu"] = habit.ThuTime) : "";
-    habit.Fri ? (cueDayTime["Fri"] = habit.FriTime) : "";
-    habit.Sat ? (cueDayTime["Sat"] = habit.SatTime) : "";
-    habit.Sun ? (cueDayTime["Sun"] = habit.SunTime) : "";
-
-    let updatedAp = await Ap.create({
-      name: habit.ApName,
-      email: habit.ApEmail,
+    const oldHabit = await Habit.findById(habitId);
+    const updateAp = await Ap.findByIdAndUpdate(oldHabit.ap, {
+      name: habitUpdate.ApName,
+      email: habitUpdate.ApEmail,
     });
-
-    let createdHabit = await Habit.create({
-      user: userId,
-      description: habit.description,
-      cueDayTime,
-      ap: createdAp._id,
+    const cueDayTime = {};
+    habitUpdate.Mon ? (cueDayTime["Mon"] = habitUpdate.MonTime) : "";
+    habitUpdate.Tue ? (cueDayTime["Tue"] = habitUpdate.TueTime) : "";
+    habitUpdate.Wed ? (cueDayTime["Wed"] = habitUpdate.WedTime) : "";
+    habitUpdate.Thu ? (cueDayTime["Thu"] = habitUpdate.ThuTime) : "";
+    habitUpdate.Fri ? (cueDayTime["Fri"] = habitUpdate.FriTime) : "";
+    habitUpdate.Sat ? (cueDayTime["Sat"] = habitUpdate.SatTime) : "";
+    habitUpdate.Sun ? (cueDayTime["Sun"] = habitUpdate.SunTime) : "";
+    const updatedHabit = await Habit.findByIdAndUpdate(habitId, {
+      user: oldHabit.user,
+      description: habitUpdate.description,
+      cueDayTime: cueDayTime,
+      ap: oldHabit.ap,
     });
-    return createdHabit;
+    return updatedHabit;
   } catch (err) {
     console.log(err);
   }
@@ -118,7 +118,7 @@ privateRouter.post("/habit-add", function (req, res, next) {
 });
 
 privateRouter.get("/habit-delete/:id", function (req, res, next) {
-  let habitID = req.params.id;
+  let habitId = req.params.id;
   Habit.deleteOne({ _id: habitId })
     .then(() => res.redirect("/private/habit-dashboard"))
     .catch((err) => console.log(err));
@@ -126,7 +126,7 @@ privateRouter.get("/habit-delete/:id", function (req, res, next) {
 });
 
 privateRouter.get("/habit-update/:id", function (req, res, next) {
-  let habitID = req.params.id;
+  let habitId = req.params.id;
   Habit.findById(habitId)
     .populate("ap")
     .then((habit) => {
@@ -137,96 +137,15 @@ privateRouter.get("/habit-update/:id", function (req, res, next) {
 });
 
 privateRouter.post("/habit-update/:id", function (req, res, next) {
-  let habitID = req.params.id;
-  console.log(habitID);
-  console.log("-------req body:\n");
-  console.log(req.body);
-  Habit.findById(habitId)
-    .populate("ap")
+  const habitId = req.params.id;
+  const habitUpdate = req.body;
+  updateHabit(habitId, habitUpdate)
     .then((habit) => {
-      console.log("------habit from mongo:\n");
+      console.log("------updated:\n");
       console.log(habit);
-
       res.redirect("/private/habit-dashboard");
     })
     .catch((err) => console.log(err));
 });
 
 module.exports = privateRouter;
-
-
-[Object: null prototype] {
-  description: 'floss sometimes',
-  Mon: 'Mon',
-  MonTime: '07:30',
-  TueTime: '',
-  Wed: 'Wed',
-  WedTime: '07:30',
-  Thu: 'Thu',
-  ThuTime: '07:30',
-  FriTime: '',
-  Sat: 'Sat',
-  SatTime: '09:00',
-  Sun: 'Sun',
-  SunTime: '09:00',
-  ApName: 'Jenny Red',
-  ApEmail: 'jennyred@xkae.com'
-}
-------habit from mongo:
-
-{
-  cueMedium: 'email',
-  push: [
-    2021-01-29T07:30:00.000Z,
-    2021-01-30T07:30:00.000Z,
-    2021-01-31T07:30:00.000Z,
-    2021-01-01T07:30:00.000Z,
-    2021-01-02T07:30:00.000Z,
-    2021-01-03T07:30:00.000Z,
-    2021-01-04T07:30:00.000Z,
-    2021-01-05T07:30:00.000Z,
-    2021-01-06T07:30:00.000Z,
-    2021-01-07T07:30:00.000Z,
-    2021-01-08T07:30:00.000Z,
-    2021-01-09T07:30:00.000Z
-  ],
-  punch: [
-    2021-01-29T08:45:00.000Z,
-    2021-01-30T08:45:00.000Z,
-    2021-01-31T08:45:00.000Z,
-    2021-01-01T08:45:00.000Z,
-    2021-01-02T08:45:00.000Z,
-    2021-01-04T08:45:00.000Z,
-    2021-01-05T08:45:00.000Z,
-    2021-01-07T08:45:00.000Z,
-    2021-01-08T08:45:00.000Z,
-    2021-01-09T08:45:00.000Z
-  ],
-  _id: 602eab33de690edc61146772,
-  user: 602eab32de690edc6114676a,
-  description: 'floss',
-  cueDayTime: {
-    Mon: '07:30',
-    Tue: '07:30',
-    Wed: '07:30',
-    Thu: '07:30',
-    Fri: '07:30',
-    Sat: '09:00',
-    Sun: '09:00'
-  },
-  ap: {
-    verified: true,
-    _id: 602eab33de690edc6114676c,
-    email: 'jennyred@xkae.com',
-    name: 'Jenny Red',
-    dateTimePush: 2021-02-18T18:00:19.016Z,
-    dateTimeVerified: 2021-02-18T18:00:19.016Z,
-    __v: 0
-  },
-  dateTimeRegistered: 2021-02-18T18:00:19.413Z,
-  __v: 0
-}
-POST /private/habit-update/602eab33de690edc61146772 302 9.677 ms - 92
-in private dashboard
-GET /private/habit-dashboard 304 14.819 ms - -
-GET /images/logo.png 304 6.059 ms - -
