@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 mongoose
-  .connect("mongodb://localhost/habitrocket-dev", {
+  .connect(process.env.DB_CONNECTION, {
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,

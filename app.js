@@ -29,7 +29,7 @@ const debug = require("debug")(
 );
 
 // TODO:  env setup
-// require("dotenv").config();
+require("dotenv").config();
 
 // setup up monngo and connects to database
 require("./configs/db.config");
