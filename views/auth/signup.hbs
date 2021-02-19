@@ -1,32 +1,43 @@
-<h1>Welcome to Habit Rocket</h1>
-<h1>Signup and start using HAbitRocket today!</h1>
+
+<style>
+    body {
+      background-image: url("/images/mountain.png");
+      background-size: cover;
+    }
+</style>
+
+<div class="auth-page">
+<h5>Start using HAbitRocket today!</h5>
 
 
 <form action='/auth/signup' method='POST'>
   <h2>Sign Up</h2>
   <div>
-  <label for='name'>Name</label>
+  <label for='name'>Name</label><br>
   <input type='text' name='name' minlength="4">
   </div>
   <br>
   <div>
-  <label for='email'>email</label>
+  <label for='email'>email</label><br>
   <input type='email' name='email' minlength="6">
   </div>
   <br>
   <div>
-  <label for=''>Mobile (optional)</label>
+  <label for=''>Mobile (optional)</label><br>
   <input type='tel' name='mobile' minlength="5">
   </div>
   <br>
   <div>
-  <label for='password'>Password</label>
+  <label for='password'>Password</label><br>
   <input type='password' name='password' minlength="5">
+  <br><br>
   </div>
 
-  <button type='submit'>signup</button>  
+  <button id="auth-button" type='submit'>signup</button>  
 
 </form>
+
+</div>
 
 
 {{#if suggestions}}

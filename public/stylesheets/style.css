@@ -4,5 +4,27 @@ body {
 }
 
 a {
-  color: #00B7FF;
+  color: orange;
+}
+
+.auth-page {
+  display: flex;
+  font-weight: bolder;
+  flex-direction: column;
+  flex-wrap: no-wrap;
+  justify-content: flex-end;
+  align-items: center;
+  color: orange;
+  background-image: url(/public/images/mountain.png);
+}
+
+#auth-button {
+  color: orange;
+  color: whitesmoke;
+  font-size: smaller;
+  background-color: orange;
+  border-radius: 10px;
+  border-color: none;
+  width: 100%;
+  text-align: center;
 }
