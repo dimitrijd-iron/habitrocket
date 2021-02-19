@@ -8,17 +8,17 @@
     <div class=habitSummary"></div>
         <a href="/private/habit-track/{{this._id}}"><button>Track</button></a>
         <br> 
-        <div><h2>"Description: {{this.description}}"</h2></div> 
-        <div><h4>"AP name: {{this.ap.name}}"</h4></div>
-        <div><h4>"Cue DayTime: Mon:{{this.cueDayTime.Mon}} 
-                            Tue:{{this.cueDayTime.Tue}} 
-                            Wed:{{this.cueDayTime.Wed}} 
-                            Thu:{{this.cueDayTime.Thu}} 
-                            Fri:{{this.cueDayTime.Fri}} 
-                            Sat:{{this.cueDayTime.Sat}} 
-                            Sun:{{this.cueDayTime.Sun}} "</h4></div>  
-        <div><h4><span>"Last punch:" {{#each this.punch}}{{#if @last}}{{this}}{{/if}}{{/each}}</span></h4></div> 
-        <div><h4><span>"Number of punches:" {{this.punch.length}}</span></h4></div>
+        <div><h2>{{this.description}}</h2></div> 
+        <div><h4>Sponsor: {{this.ap.name}}</h4></div>
+        <div><h6>Cue on: Mon: {{this.cueDayTime.Mon}} 
+                            Tue: {{this.cueDayTime.Tue}}   
+                            Wed: {{this.cueDayTime.Wed}}   
+                            Thu: {{this.cueDayTime.Thu}}   
+                            Fri: {{this.cueDayTime.Fri}}   
+                            Sat: {{this.cueDayTime.Sat}}   
+                            Sun: {{this.cueDayTime.Sun}} </h6></div>  
+        <div><h4><span>Last punch: {{#each this.punch}}{{#if @last}}{{this}}{{/if}}{{/each}}</span></h4></div> 
+        <div><h4><span>Number of punches: {{this.punch.length}}</span></h4></div>
         <br>
       </div>
   {{/each}}
