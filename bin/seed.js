@@ -164,7 +164,7 @@ punchList = [punchList1, punchList2, punchList3];
 
 const seedDB = async () => {
   try {
-    let conn = await mongoose.connect(`mongodb://localhost/habitrocket-dev`, {
+    let conn = await mongoose.connect(process.env.DB_CONNECTION, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
