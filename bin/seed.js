@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const User = require("../models/user");
 const Ap = require("../models/ap");
 const Habit = require("../models/habit");
+require("dotenv").config();
 
 const salt = bcrypt.genSaltSync(5);
 
@@ -164,7 +165,7 @@ punchList = [punchList1, punchList2, punchList3];
 
 const seedDB = async () => {
   try {
-    let conn = await mongoose.connect(process.env.DB_CONNECTION, {
+    let conn = await mongoose.connect(`${process.env.DB_CONNECTION}`, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -194,5 +195,7 @@ const seedDB = async () => {
     console.log(err);
   }
 };
+
+console.log(process.env.DB_CONNECTION);
 
 seedDB();
