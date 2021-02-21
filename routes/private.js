@@ -3,6 +3,8 @@ const privateRouter = express.Router();
 const User = require("../models/user");
 const Habit = require("../models/habit");
 const Ap = require("../models/ap");
+const CalendarUtil = require("../public/javascripts/calendar");
+const HabitReshaper = require("../public/javascripts/helper");
 const saltRounds = 10;
 
 // =====================================================
@@ -20,7 +22,6 @@ const buildHabitSummary = async (user) => {
 };
 
 privateRouter.get("/habit-dashboard", function (req, res, next) {
-  console.log("in private dashboard");
   currentUser = req.session.currentUser;
   buildHabitSummary(currentUser).then((data) => {
     res.render("private/habit-dashboard", { habits: data });
@@ -36,10 +37,20 @@ const habitSummary = async (habitId) => {
 };
 
 privateRouter.get("/habit-track/:id", function (req, res, next) {
-  habitId = req.params.id;
-  habitSummary(habitId).then((data) => {
-    res.render("private/habit-track", data[0]);
-  });
+  const habitId = req.params.id;
+  const today = new Date();
+  const month = today.getMonth();
+  const year = today.getFullYear();
+  habitSummary(habitId)
+    .then((data) => {
+      const dataWithCalendar = {
+        data: data[0],
+        calendar: CalendarUtil.buildCalendar(year, month),
+      };
+      res.render("private/habit-track", dataWithCalendar);
+      CalendarUtil.decorate(2021, 1, "red");
+    })
+    .catch((err) => console.log(err));
 });
 
 privateRouter.get("/habit-punch/:id", function (req, res, next) {
@@ -57,14 +68,6 @@ privateRouter.get("/habit-add", function (req, res, next) {
 
 const createHabit = async (habit, userId) => {
   try {
-    let cueDayTime = {};
-    habit.Mon ? (cueDayTime["Mon"] = habit.MonTime) : "";
-    habit.Tue ? (cueDayTime["Tue"] = habit.TueTime) : "";
-    habit.Wed ? (cueDayTime["Wed"] = habit.WedTime) : "";
-    habit.Thu ? (cueDayTime["Thu"] = habit.ThuTime) : "";
-    habit.Fri ? (cueDayTime["Fri"] = habit.FriTime) : "";
-    habit.Sat ? (cueDayTime["Sat"] = habit.SatTime) : "";
-    habit.Sun ? (cueDayTime["Sun"] = habit.SunTime) : "";
     let createdAp = await Ap.create({
       name: habit.ApName,
       email: habit.ApEmail,
@@ -72,7 +75,7 @@ const createHabit = async (habit, userId) => {
     let createdHabit = await Habit.create({
       user: userId,
       description: habit.description,
-      cueDayTime,
+      cueDayTime: habitReshaper(habit),
       ap: createdAp._id,
     });
     return createdHabit;
@@ -82,26 +85,16 @@ const createHabit = async (habit, userId) => {
 };
 
 const updateHabit = async (habitId, habitUpdate) => {
-  console.log("req.body---->>> \n", habitUpdate);
-  console.log("habitId---->>> \n", habitId);
   try {
     const oldHabit = await Habit.findById(habitId);
     const updateAp = await Ap.findByIdAndUpdate(oldHabit.ap, {
       name: habitUpdate.ApName,
       email: habitUpdate.ApEmail,
     });
-    const cueDayTime = {};
-    habitUpdate.Mon ? (cueDayTime["Mon"] = habitUpdate.MonTime) : "";
-    habitUpdate.Tue ? (cueDayTime["Tue"] = habitUpdate.TueTime) : "";
-    habitUpdate.Wed ? (cueDayTime["Wed"] = habitUpdate.WedTime) : "";
-    habitUpdate.Thu ? (cueDayTime["Thu"] = habitUpdate.ThuTime) : "";
-    habitUpdate.Fri ? (cueDayTime["Fri"] = habitUpdate.FriTime) : "";
-    habitUpdate.Sat ? (cueDayTime["Sat"] = habitUpdate.SatTime) : "";
-    habitUpdate.Sun ? (cueDayTime["Sun"] = habitUpdate.SunTime) : "";
     const updatedHabit = await Habit.findByIdAndUpdate(habitId, {
       user: oldHabit.user,
       description: habitUpdate.description,
-      cueDayTime: cueDayTime,
+      cueDayTime: HabitReshaper(habitUpdate),
       ap: oldHabit.ap,
     });
     return updatedHabit;
@@ -130,7 +123,6 @@ privateRouter.get("/habit-update/:id", function (req, res, next) {
   Habit.findById(habitId)
     .populate("ap")
     .then((habit) => {
-      console.log(habit);
       res.render("private/habit-update", habit);
     })
     .catch((err) => console.log(err));
@@ -141,8 +133,6 @@ privateRouter.post("/habit-update/:id", function (req, res, next) {
   const habitUpdate = req.body;
   updateHabit(habitId, habitUpdate)
     .then((habit) => {
-      console.log("------updated:\n");
-      console.log(habit);
       res.redirect("/private/habit-dashboard");
     })
     .catch((err) => console.log(err));
